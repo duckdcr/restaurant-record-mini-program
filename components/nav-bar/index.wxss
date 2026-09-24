@@ -1,0 +1,61 @@
+/* 自定义导航栏 —— 还原原型 .app-head */
+.app-head {
+  position: relative;
+  z-index: 5;
+  padding: 0 38rpx 27rpx;
+  background: var(--surface, #fffefc);
+  border-bottom: 1rpx solid var(--line, #dfe6df);
+}
+.head-row { display: flex; align-items: center; justify-content: space-between; gap: 31rpx; }
+.brand { display: flex; align-items: center; gap: 19rpx; min-width: 0; }
+.brand-mark {
+  width: 65rpx;
+  height: 65rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: 19rpx;
+  background: var(--forest, #0f3e17);
+  color: var(--surface, #fffefc);
+  font-family: var(--font-mono, monospace);
+  font-size: 23rpx;
+  font-weight: 650;
+  letter-spacing: -.04em;
+}
+.brand-copy { min-width: 0; }
+.brand-copy strong { display: block; font-size: 31rpx; font-weight: 650; letter-spacing: -.02em; color: var(--ink, #13251a); }
+.brand-copy small { display: block; margin-top: 4rpx; color: var(--text-3, #68746c); font-size: 21rpx; }
+.avatar {
+  width: 65rpx;
+  height: 65rpx;
+  border-radius: 50%;
+  background: var(--mist, #dce9ec);
+  color: var(--forest, #0f3e17);
+  font-size: 23rpx;
+  font-weight: 650;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatar-hover { opacity: .8; }
+
+/* 顶部胶囊提示（原型 .toast） */
+.nav-toast {
+  position: fixed;
+  z-index: 60;
+  left: 50%;
+  top: 200rpx;
+  max-width: 86%;
+  transform: translateX(-50%) translateY(-19rpx);
+  padding: 19rpx 27rpx;
+  border-radius: 999rpx;
+  background: var(--ink, #13251a);
+  color: var(--surface, #fffefc);
+  opacity: 0;
+  pointer-events: none;
+  font-size: 23rpx;
+  text-align: center;
+  transition: opacity 160ms, transform 160ms cubic-bezier(.2, 0, 0, 1);
+}
+.nav-toast.show { opacity: .96; transform: translateX(-50%) translateY(0); }

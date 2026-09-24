@@ -1,0 +1,26 @@
+.vercel/
+.codex_tmp/
+
+# Local environment files (keep the documented template)
+.env
+.env.*
+!.env.example
+
+# Python caches and local test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.db
+*.sqlite
+*.sqlite3
+
+# Local uploads and generated reports
+backend/uploads/
+
+# WeChat developer-specific settings
+project.private.config.json
+
+# Common JavaScript build artifacts
+node_modules/
+dist/
+build/

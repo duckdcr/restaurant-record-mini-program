@@ -1,0 +1,10 @@
+<view wx:if="{{rendered}}" class="overlay {{visible ? 'open' : ''}}" catchtouchmove="noop">
+  <view class="mask" bindtap="onMask"></view>
+  <view class="drawer" catchtap="noop">
+    <view class="drawer-head">
+      <text class="drawer-title">{{title}}</text>
+      <view class="close-button" bindtap="onClose" hover-class="btn-hover">×</view>
+    </view>
+    <slot></slot>
+  </view>
+</view>

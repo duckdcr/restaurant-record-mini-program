@@ -1,0 +1,4 @@
+<view class="splash {{leaving ? 'leaving' : ''}}">
+  <image class="splash-img" src="/assets/splash.png" mode="aspectFit" />
+  <view wx:if="{{loginError}}" class="login-error" bindtap="retry">{{loginError}} · 点击重试</view>
+</view>

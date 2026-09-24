@@ -1,0 +1,41 @@
+/* 自定义 tabBar —— 还原原型 .bottom-nav / .nav-button（01-04 编号样式） */
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  padding: 15rpx 17rpx calc(15rpx + env(safe-area-inset-bottom));
+  background: var(--surface, #fffefc);
+  border-top: 1rpx solid var(--line, #dfe6df);
+  box-shadow: 0 -10rpx 35rpx rgba(30, 56, 37, .04);
+}
+.nav-button {
+  position: relative;
+  min-height: 92rpx;
+  border-radius: 19rpx;
+  background: transparent;
+  color: var(--text-3, #68746c);
+  font-size: 21rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.nav-button.active {
+  color: var(--forest, #0f3e17);
+  font-weight: 650;
+  background: var(--linen, #e1f4df);
+}
+.nav-hover { opacity: .8; }
+.nav-code {
+  display: block;
+  margin-bottom: 6rpx;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 17rpx;
+  font-weight: 500;
+  letter-spacing: .08em;
+}

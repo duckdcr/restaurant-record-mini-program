@@ -1,0 +1,9 @@
+{
+  "desc": "A2 台账 AI · 安心留样演示小程序",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "*"
+    }
+  ]
+}

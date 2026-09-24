@@ -1,0 +1,32 @@
+{
+  "pages": [
+    "pages/splash/splash",
+    "pages/tasks/tasks",
+    "pages/scan/scan",
+    "pages/ledger/ledger",
+    "pages/admin/admin"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundColor": "#f7f8f3",
+    "backgroundColorTop": "#fffefc",
+    "backgroundColorBottom": "#fffefc",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#68746c",
+    "selectedColor": "#0f3e17",
+    "backgroundColor": "#fffefc",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/tasks/tasks", "text": "待办" },
+      { "pagePath": "pages/scan/scan", "text": "登记" },
+      { "pagePath": "pages/ledger/ledger", "text": "台账" },
+      { "pagePath": "pages/admin/admin", "text": "管理" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

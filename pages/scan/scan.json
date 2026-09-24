@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "nav-bar": "/components/nav-bar/index",
+    "toast": "/components/toast/index",
+    "splash-overlay": "/components/splash-overlay/index"
+  }
+}

@@ -1,0 +1,142 @@
+<!-- 04 管理 —— 严格还原原型 #view-admin（今日菜单 / 报表导出 / 留样规范 三段切换） -->
+<view class="view">
+
+  <nav-bar title="管理" />
+
+  <text class="eyeline">MANAGEMENT</text>
+  <view class="view-title">管理</view>
+  <text class="view-sub">低频设置集中在这里，不打断一线登记。</text>
+
+  <!-- 三段切换 -->
+  <view class="admin-switch">
+    <button
+      class="admin-tab {{ adminTab === 'menu' ? 'active' : '' }}"
+      data-admin="menu"
+      bindtap="switchAdmin"
+      hover-class="none"
+    >今日菜单</button>
+    <button
+      class="admin-tab {{ adminTab === 'export' ? 'active' : '' }}"
+      data-admin="export"
+      bindtap="switchAdmin"
+      hover-class="none"
+    >报表导出</button>
+    <button
+      class="admin-tab {{ adminTab === 'policy' ? 'active' : '' }}"
+      data-admin="policy"
+      bindtap="switchAdmin"
+      hover-class="none"
+    >留样规范</button>
+  </view>
+
+  <!-- 面板一：今日菜单 -->
+  <view class="admin-panel" wx:if="{{ adminTab === 'menu' }}">
+    <text class="admin-intro">菜单是漏记提醒的核对依据。菜名会直接进入拍照识别候选。</text>
+
+    <view class="form-group">
+      <text class="form-label">菜单日期</text>
+      <picker mode="date" value="{{ menuDate }}" bindchange="onMenuDate">
+        <view class="form-control picker-face">
+          <text class="picker-value">{{ menuDate }}</text>
+          <text class="picker-arrow">▾</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">早餐 · {{ breakfastCount }} 道</text>
+      <textarea
+        class="form-control textarea-face"
+        value="{{ breakfastMenu }}"
+        bindinput="onBreakfast"
+        maxlength="-1"
+        auto-height="{{ false }}"
+        placeholder="用顿号分隔菜名"
+        placeholder-class="form-placeholder"
+      />
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">午餐 · {{ lunchCount }} 道</text>
+      <textarea
+        class="form-control textarea-face"
+        value="{{ lunchMenu }}"
+        bindinput="onLunch"
+        maxlength="-1"
+        placeholder="用顿号分隔菜名"
+        placeholder-class="form-placeholder"
+      />
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">晚餐 · {{ dinnerCount }} 道</text>
+      <textarea
+        class="form-control textarea-face"
+        value="{{ dinnerMenu }}"
+        bindinput="onDinner"
+        maxlength="-1"
+        placeholder="用顿号分隔菜名"
+        placeholder-class="form-placeholder"
+      />
+    </view>
+
+    <view class="inline-actions">
+      <button class="btn btn-secondary" bindtap="copyYesterday" hover-class="btn-hover">复制昨日</button>
+      <button
+        class="btn btn-primary {{ saveDisabled ? 'btn-disabled' : '' }}"
+        bindtap="saveMenu"
+        hover-class="btn-hover"
+      >{{ saveLabel }}</button>
+    </view>
+  </view>
+
+  <!-- 面板二：报表导出 -->
+  <view class="admin-panel" wx:if="{{ adminTab === 'export' }}">
+    <text class="admin-intro">按日期生成监管报送表，包含状态、到期时间、处置人与审计编号。</text>
+
+    <view class="export-range">
+      <view class="form-group">
+        <text class="form-label">开始日期</text>
+        <picker mode="date" value="{{ exportFrom }}" bindchange="onExportFrom">
+          <view class="form-control picker-face">
+            <text class="picker-value">{{ exportFrom }}</text>
+            <text class="picker-arrow">▾</text>
+          </view>
+        </picker>
+      </view>
+      <text class="range-sep">至</text>
+      <view class="form-group">
+        <text class="form-label">结束日期</text>
+        <picker mode="date" value="{{ exportTo }}" bindchange="onExportTo">
+          <view class="form-control picker-face">
+            <text class="picker-value">{{ exportTo }}</text>
+            <text class="picker-arrow">▾</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <button
+      class="btn btn-primary btn-full {{ exportDisabled ? 'btn-disabled' : '' }}"
+      bindtap="exportReport"
+      hover-class="btn-hover"
+    >{{ exportLabel }}</button>
+
+    <view class="ai-state">当前模板：学校食堂留样台账 · 数据来自真实台账与审计记录</view>
+  </view>
+
+  <!-- 面板三：留样规范 -->
+  <view class="admin-panel" wx:if="{{ adminTab === 'policy' }}">
+    <text class="admin-intro">演示口径可按机构所在地与检查模板配置。</text>
+    <view class="policy-list">
+      <view class="policy" wx:for="{{ policies }}" wx:key="key">
+        <text class="policy-key">{{ item.key }}</text>
+        <text class="policy-desc">{{ item.desc }}</text>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<toast id="pageToast" />
+<splash-overlay visible="{{showSplash}}" bind:finish="onSplashFinish" />

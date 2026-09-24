@@ -1,0 +1,85 @@
+<nav-bar title="拍照登记" />
+<view class="view">
+  <view class="eyeline">NEW SAMPLE</view>
+  <view class="view-title">拍照登记</view>
+  <view class="view-sub">对准留样标签拍摄，AI 会先读取，再由你确认。</view>
+
+  <view class="scan-stage {{hasImage ? 'has-image' : ''}} {{scanning ? 'scanning' : ''}}">
+    <image wx:if="{{hasImage}}" class="stage-img" src="{{photoPath}}" mode="aspectFill" />
+    <view class="scan-copy">
+      <view class="camera-label">LABEL</view>
+      <strong>放入一张标签照片</strong>
+      <text class="scan-tip">包含菜名、餐次、留样时间与人员{"\n"}照片会加密传给已配置的识别服务</text>
+    </view>
+    <view class="scan-line" />
+  </view>
+
+  <view class="scan-actions">
+    <button class="btn btn-secondary" hover-class="btn-hover" bindtap="choosePhoto">选择照片</button>
+    <button class="btn btn-primary {{recognizeDisabled ? 'btn-disabled' : ''}}" hover-class="btn-hover" disabled="{{recognizeDisabled}}" bindtap="startRecognition">{{recognizeLabel}}</button>
+  </view>
+  <view class="ai-state">{{aiState}}</view>
+
+  <view class="result-panel {{resultShow ? 'show' : ''}}">
+    <view class="result-title">
+      <view class="result-h2">核对识别结果</view>
+      <text class="confidence-help">字段置信度</text>
+    </view>
+    <view class="field-list">
+      <view class="field-row">
+        <view class="field-meta"><label>餐次</label><text class="confidence">98%</text></view>
+        <picker mode="selector" range="{{mealOptions}}" value="{{mealIndex}}" bindchange="onMealChange">
+          <view class="form-control">{{mealOptions[mealIndex]}}</view>
+        </picker>
+        <view class="source-note">人工确认 · 作为菜单关联依据</view>
+      </view>
+      <view class="field-row attention">
+        <view class="field-meta"><label>菜名</label><text class="confidence low">61% · 请核对</text></view>
+        <input class="form-control" value="{{dish}}" bindinput="onDishInput" />
+        <view class="source-note">{{recognition.dishName.sourceLabel || '人工填写'}} · 保存前可修改</view>
+      </view>
+      <view class="field-row">
+        <view class="field-meta"><label>留样时间</label><text class="confidence">96%</text></view>
+        <view class="time-control">
+          <picker mode="date" value="{{sampleDate}}" bindchange="onDateChange">
+            <view class="form-control">{{sampleDate}}</view>
+          </picker>
+          <picker mode="time" value="{{sampleTime}}" bindchange="onTimeChange">
+            <view class="form-control">{{sampleTime}}</view>
+          </picker>
+        </view>
+        <view class="source-note">人工确认 · 可手动修改</view>
+      </view>
+      <view class="field-row">
+        <view class="field-meta"><label>留样人</label><text class="confidence">93%</text></view>
+        <picker mode="selector" range="{{keeperOptions}}" value="{{keeperIndex}}" bindchange="onKeeperChange">
+          <view class="form-control">{{keeperOptions[keeperIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="confirm-grid">
+      <label class="confirm-line">
+        <checkbox checked="{{confirmAmount}}" bindchange="onConfirmAmount" />
+        <text>留样量 {{amount}}g：{{amountSourceLabel}}{{amountNeedsConfirmation ? '，需人工确认' : ''}}</text>
+      </label>
+      <label class="confirm-line">
+        <checkbox checked="{{confirmTemp}}" bindchange="onConfirmTemp" />
+        <text>冷藏温度 {{temperature}}℃：{{temperatureSourceLabel}}{{tempNeedsConfirmation ? '，需人工确认' : ''}}</text>
+      </label>
+    </view>
+    <button class="btn btn-primary btn-full {{canSave && !saving ? '' : 'btn-disabled'}}" hover-class="btn-hover" disabled="{{!canSave || saving}}" bindtap="saveSample">{{saving ? '正在保存…' : '确认无误，保存台账'}}</button>
+  </view>
+
+  <view class="save-success {{savedShow ? 'show' : ''}}">
+    <view class="success-mark">✓</view>
+    <view class="success-h2">{{savedTitle}}</view>
+    <view class="success-p">{{mealOptions[mealIndex]}} · {{keeperOptions[keeperIndex]}} · 125g · 4℃{"\n"}到期时间：{{savedExpire}}</view>
+    <view class="success-actions">
+      <button class="btn btn-secondary" hover-class="btn-hover" bindtap="resetScan">继续登记</button>
+      <button class="btn btn-primary" hover-class="btn-hover" bindtap="goLedger">查看台账</button>
+    </view>
+  </view>
+</view>
+
+<toast id="pageToast" />
+<splash-overlay visible="{{showSplash}}" bind:finish="onSplashFinish" />

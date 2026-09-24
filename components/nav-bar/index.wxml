@@ -1,0 +1,13 @@
+<view class="app-head" style="padding-top: {{statusBarHeight + 14}}px;">
+  <view class="head-row">
+    <view class="brand">
+      <view class="brand-mark">A2</view>
+      <view class="brand-copy">
+        <strong>{{title}}</strong>
+        <small>博涵实验学校 · 第一食堂</small>
+      </view>
+    </view>
+    <view class="avatar" bindtap="onAvatar" hover-class="avatar-hover">{{person}}</view>
+  </view>
+  <view class="nav-toast {{toastShow ? 'show' : ''}}">{{toast}}</view>
+</view>

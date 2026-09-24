@@ -1,0 +1,84 @@
+<nav-bar title="留样台账" />
+<view class="view">
+  <view class="eyeline">{{eyeline}}</view>
+  <view class="view-title">留样台账</view>
+  <view class="view-sub">状态、证据和处置记录都在同一条时间线上。</view>
+
+  <view class="search-wrap">
+    <input class="search" type="text" value="{{keyword}}" placeholder="搜索菜名或留样人" bindinput="onSearchInput" />
+  </view>
+  <scroll-view class="filters" scroll-x enhanced show-scrollbar="{{false}}">
+    <view
+      wx:for="{{filters}}"
+      wx:key="key"
+      class="filter {{activeFilter === item.key ? 'active' : ''}}"
+      hover-class="filter-hover"
+      data-key="{{item.key}}"
+      bindtap="onFilterTap"
+    >{{item.label}}</view>
+  </scroll-view>
+  <view class="ledger-count">共 {{visibleCount}} 条记录</view>
+  <view class="empty" wx:if="{{loading}}"><text>正在同步台账…</text></view>
+  <view class="empty" wx:if="{{loadError}}" bindtap="loadRecords"><text>{{loadError}}{"\n"}点击重试</text></view>
+
+  <view class="record-list">
+    <view wx:for="{{records}}" wx:key="id" wx:if="{{item.visible}}" class="record">
+      <view class="record-head">
+        <view class="record-title-wrap">
+          <view class="record-h3">{{item.name}}</view>
+          <view class="record-sub">{{item.meal}} · {{item.time}}</view>
+        </view>
+        <text class="status {{item.statusClass}}">{{item.statusText}}</text>
+      </view>
+      <view class="record-meta">
+        <view wx:for="{{item.meta}}" wx:for-item="m" wx:key="label" class="meta-cell">
+          <span>{{m.label}}</span><b>{{m.value}}</b>
+        </view>
+      </view>
+      <view class="record-actions">
+        <button class="btn btn-quiet btn-sm" hover-class="btn-hover" data-record="{{item.id}}" bindtap="openDetail">查看证据</button>
+        <button wx:if="{{item.hasDispose}}" class="btn btn-danger btn-sm" hover-class="btn-hover" data-record="{{item.id}}" bindtap="openDisposal">到期处置</button>
+      </view>
+    </view>
+  </view>
+  <view class="empty" wx:if="{{isEmpty}}">
+    <text>没有符合条件的记录{"\n"}可以调整筛选或搜索词。</text>
+  </view>
+</view>
+
+<!-- 留样证据抽屉 -->
+<drawer visible="{{detailVisible}}" title="{{detailTitle}}" bind:close="closeDetail">
+  <view class="drawer-copy">{{detailSummary}}</view>
+  <view class="evidence">
+    <view wx:for="{{events}}" wx:key="title" class="event">
+      <strong>{{item.title}}</strong>
+      <span>{{item.desc}}</span>
+    </view>
+  </view>
+  <button class="btn btn-primary btn-full" hover-class="btn-hover" bindtap="closeDetail">我已了解</button>
+</drawer>
+
+<!-- 到期处置抽屉 -->
+<drawer visible="{{disposalVisible}}" title="到期处置" bind:close="closeDisposal">
+  <view class="drawer-copy"><text>{{disposalDish}}</text>已保存超过 48 小时。完成处置后将保留操作记录，不能直接删除。</view>
+  <view class="form-group">
+    <label>处置方式</label>
+    <picker mode="selector" range="{{disposalMethods}}" value="{{disposalMethodIndex}}" bindchange="onMethodChange">
+      <view class="form-control">{{disposalMethods[disposalMethodIndex]}}</view>
+    </picker>
+  </view>
+  <view class="form-group">
+    <label>处置说明</label>
+    <textarea class="form-control textarea" value="{{disposalNote}}" placeholder="选填，例如：外观无异常，按规定废弃" bindinput="onNoteInput" />
+  </view>
+  <view class="form-group">
+    <label>复核人</label>
+    <picker mode="selector" range="{{reviewers}}" value="{{reviewerIndex}}" bindchange="onReviewerChange">
+      <view class="form-control">{{reviewers[reviewerIndex]}}</view>
+    </picker>
+  </view>
+  <button class="btn btn-danger btn-full" hover-class="btn-hover" bindtap="confirmDisposal">确认处置并留痕</button>
+</drawer>
+
+<toast id="pageToast" />
+<splash-overlay visible="{{showSplash}}" bind:finish="onSplashFinish" />

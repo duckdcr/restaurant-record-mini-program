@@ -1,0 +1,18 @@
+.toast {
+  position: fixed;
+  z-index: 90;
+  left: 50%;
+  top: 240rpx;
+  max-width: 86%;
+  transform: translateX(-50%) translateY(-19rpx);
+  padding: 19rpx 27rpx;
+  border-radius: 999rpx;
+  background: var(--ink, #13251a);
+  color: var(--surface, #fffefc);
+  opacity: 0;
+  pointer-events: none;
+  font-size: 23rpx;
+  text-align: center;
+  transition: opacity 160ms, transform 160ms cubic-bezier(.2, 0, 0, 1);
+}
+.toast.show { opacity: .96; transform: translateX(-50%) translateY(0); }

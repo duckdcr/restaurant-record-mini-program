@@ -1,0 +1,129 @@
+/* 03 台账 —— 还原原型 #view-ledger */
+.view { padding: 42rpx 35rpx 100rpx; }
+
+.eyeline {
+  margin: 0 0 13rpx;
+  color: var(--text-3, #68746c);
+  font-family: var(--font-mono, monospace);
+  font-size: 21rpx;
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+.view-title { font-size: 54rpx; font-weight: 400; letter-spacing: -.04em; line-height: 1.2; color: var(--ink, #13251a); }
+.view-sub { margin: 15rpx 0 0; color: var(--text-2, #526158); font-size: 25rpx; line-height: 1.6; }
+
+.search-wrap { margin-top: 35rpx; }
+.search {
+  width: 100%;
+  min-height: 85rpx;
+  border: 1rpx solid var(--line, #dfe6df);
+  border-radius: var(--radius-control, 19rpx);
+  background: var(--surface, #fffefc);
+  color: var(--ink, #13251a);
+  padding: 19rpx 23rpx;
+  font-size: 27rpx;
+  box-sizing: border-box;
+}
+.search-placeholder { color: var(--text-3, #68746c); }
+
+.filters {
+  display: flex;
+  gap: 13rpx;
+  margin: 23rpx -35rpx 0;
+  padding: 0 35rpx 8rpx;
+  white-space: nowrap;
+}
+.filter {
+  flex: 0 0 auto;
+  min-height: 69rpx;
+  padding: 13rpx 25rpx;
+  border: 1rpx solid var(--line, #dfe6df);
+  border-radius: 999rpx;
+  background: var(--surface, #fffefc);
+  color: var(--text-2, #526158);
+  font-size: 23rpx;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+.filter.active {
+  background: var(--forest, #0f3e17);
+  color: var(--surface, #fffefc);
+  border-color: var(--forest, #0f3e17);
+}
+.filter-hover { opacity: .8; }
+
+.ledger-count { margin: 35rpx 0 19rpx; color: var(--text-3, #68746c); font-size: 21rpx; }
+.record-list { display: grid; gap: 19rpx; }
+.record {
+  padding: 29rpx;
+  border-radius: var(--radius-panel, 31rpx);
+  border: 1rpx solid var(--line, #dfe6df);
+  background: var(--surface, #fffefc);
+}
+.record-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 23rpx; }
+.record-title-wrap { min-width: 0; }
+.record-h3 { font-size: 29rpx; font-weight: 650; color: var(--ink, #13251a); }
+.record-sub { margin: 10rpx 0 0; color: var(--text-2, #526158); font-size: 23rpx; }
+.status {
+  flex: 0 0 auto;
+  padding: 10rpx 15rpx;
+  border-radius: 999rpx;
+  font-size: 19rpx;
+  font-weight: 500;
+}
+.status.ok { background: var(--success-bg, #e9f6ee); color: var(--success, #257a4a); }
+.status.warn { background: var(--warning-bg, #fff1df); color: var(--warning, #9b5514); }
+.status.bad { background: var(--danger-bg, #fae8e6); color: var(--danger, #a93430); }
+.status.done { background: #edf0ed; color: var(--text-2, #526158); }
+
+.record-meta {
+  margin-top: 27rpx;
+  padding-top: 23rpx;
+  border-top: 1rpx solid var(--line, #dfe6df);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15rpx;
+}
+.meta-cell span { color: var(--text-3, #68746c); font-size: 19rpx; display: block; }
+.meta-cell b { display: block; margin-top: 6rpx; color: var(--ink, #13251a); font-size: 23rpx; font-weight: 500; }
+
+.record-actions { display: flex; justify-content: flex-end; gap: 13rpx; margin-top: 23rpx; }
+.btn-sm { min-height: 69rpx; padding: 13rpx 21rpx; font-size: 21rpx; }
+
+.empty { padding: 81rpx 31rpx; text-align: center; color: var(--text-3, #68746c); font-size: 25rpx; line-height: 1.7; }
+
+/* 抽屉内通用 */
+.drawer-copy { margin: 13rpx 0 35rpx; color: var(--text-2, #526158); font-size: 23rpx; line-height: 1.6; }
+.drawer-copy text { font-weight: 650; color: var(--ink, #13251a); }
+.evidence { margin: 33rpx 0; border-top: 1rpx solid var(--line, #dfe6df); }
+.event { position: relative; padding: 27rpx 0 27rpx 42rpx; border-bottom: 1rpx solid var(--line, #dfe6df); }
+.event::before {
+  content: "";
+  position: absolute;
+  left: 4rpx;
+  top: 37rpx;
+  width: 13rpx;
+  height: 13rpx;
+  border-radius: 50%;
+  background: var(--success, #257a4a);
+}
+.event strong { display: block; font-size: 23rpx; font-weight: 650; color: var(--ink, #13251a); }
+.event span { display: block; margin-top: 8rpx; color: var(--text-3, #68746c); font-size: 21rpx; }
+
+.form-group { margin-bottom: 29rpx; }
+.form-group label { display: block; margin-bottom: 13rpx; color: var(--text-2, #526158); font-size: 23rpx; }
+.form-control {
+  width: 100%;
+  min-height: 85rpx;
+  border: 1rpx solid var(--line, #dfe6df);
+  border-radius: var(--radius-control, 19rpx);
+  background: var(--surface, #fffefc);
+  color: var(--ink, #13251a);
+  padding: 19rpx 23rpx;
+  font-size: 27rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.form-control.textarea { min-height: 154rpx; width: 100%; padding: 19rpx 23rpx; line-height: 1.55; }

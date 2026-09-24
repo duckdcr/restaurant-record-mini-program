@@ -1,0 +1,44 @@
+/* 抽屉 —— 还原原型 .overlay / .drawer */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: none;
+  align-items: flex-end;
+}
+.overlay.open { display: flex; }
+.mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(19, 37, 26, .34);
+  opacity: 0;
+  transition: opacity 140ms;
+}
+.overlay.open .mask { opacity: 1; animation: fade-in 140ms both; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.drawer {
+  position: relative;
+  width: 100%;
+  max-height: 82vh;
+  overflow: auto;
+  padding: 38rpx 38rpx calc(46rpx + env(safe-area-inset-bottom));
+  border-radius: 38rpx 38rpx 0 0;
+  background: var(--surface, #fffefc);
+  animation: drawer-in 220ms cubic-bezier(.2, 0, 0, 1) both;
+}
+@keyframes drawer-in { from { transform: translateY(35rpx); } to { transform: none; } }
+.drawer-head { display: flex; align-items: center; justify-content: space-between; gap: 31rpx; }
+.drawer-title { font-size: 37rpx; font-weight: 650; color: var(--ink, #13251a); }
+.close-button {
+  width: 85rpx;
+  height: 85rpx;
+  border: 1rpx solid var(--line, #dfe6df);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink, #13251a);
+  font-size: 38rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-hover { opacity: .75; }

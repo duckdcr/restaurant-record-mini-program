@@ -1,0 +1,14 @@
+<view class="bottom-nav">
+  <view
+    wx:for="{{list}}"
+    wx:key="pagePath"
+    class="nav-button {{selected === index ? 'active' : ''}}"
+    data-path="{{item.pagePath}}"
+    data-index="{{index}}"
+    bindtap="switchTab"
+    hover-class="nav-hover"
+  >
+    <text class="nav-code">{{item.code}}</text>
+    <text>{{item.text}}</text>
+  </view>
+</view>

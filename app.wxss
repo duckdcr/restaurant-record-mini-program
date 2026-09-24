@@ -1,0 +1,60 @@
+/* A2 台账 AI · 全局样式与设计变量（严格对齐 HTML 原型 :root） */
+page {
+  /* 色板 */
+  --forest: #0f3e17;
+  --forest-2: #1d5b2b;
+  --canvas: #f7f8f3;
+  --surface: #fffefc;
+  --linen: #e1f4df;
+  --sage: #b1dbb8;
+  --mist: #dce9ec;
+  --ink: #13251a;
+  --text-2: #526158;
+  --text-3: #68746c;
+  --line: #dfe6df;
+  --success: #257a4a;
+  --success-bg: #e9f6ee;
+  --warning: #9b5514;
+  --warning-bg: #fff1df;
+  --danger: #a93430;
+  --danger-bg: #fae8e6;
+
+  /* 圆角 */
+  --radius-control: 19rpx;
+  --radius-panel: 31rpx;
+
+  /* 字体栈 */
+  --font-body: -apple-system-font, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-serif: Georgia, "Songti SC", "SimSun", serif;
+  --font-mono: ui-monospace, SFMono-Regular, Consolas, Menlo, monospace;
+
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: -apple-system-font, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 27rpx;
+}
+
+/* 通用按钮基底（对应原型 .primary/.secondary/.quiet/.danger-button） */
+.btn {
+  min-height: 85rpx;
+  border-radius: var(--radius-control);
+  padding: 19rpx 29rpx;
+  border: 1rpx solid transparent;
+  font-size: 25rpx;
+  font-weight: 500;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn::after { border: none; }
+.btn-primary { background: var(--forest); color: var(--surface); }
+.btn-primary.btn-hover { background: var(--forest-2); }
+.btn-secondary { background: var(--surface); color: var(--forest); border-color: rgba(15, 62, 23, .25); }
+.btn-secondary.btn-hover { border-color: var(--forest); }
+.btn-quiet { background: transparent; color: var(--forest); border-color: var(--line); }
+.btn-quiet.btn-hover { background: var(--linen); }
+.btn-danger { background: var(--danger); color: var(--surface); }
+.btn-danger.btn-hover { opacity: .88; }
+.btn-disabled { opacity: .45; }
+.btn-full { width: 100%; }

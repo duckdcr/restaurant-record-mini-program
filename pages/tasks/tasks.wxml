@@ -1,0 +1,77 @@
+<nav-bar title="今日待办" />
+<view class="view">
+  <view class="eyeline">{{eyeline}}</view>
+  <view class="view-title">{{greet}}，{{person}}</view>
+  <view class="view-sub">先处理到期风险，再完成今日留样。</view>
+
+  <view class="summary">
+    <text class="summary-label">今日留样进度</text>
+    <view class="summary-h2">{{summaryText}}</view>
+    <view class="summary-stats">
+      <view wx:for="{{stats}}" wx:key="label"><strong>{{item.value}}</strong><span>{{item.label}}</span></view>
+    </view>
+    <button class="btn btn-primary btn-full" hover-class="btn-hover" bindtap="goScan">拍照登记留样</button>
+  </view>
+
+  <view class="section-head">
+    <view class="section-h2">现在需要处理</view>
+    <text class="section-aside">按紧急程度排序</text>
+  </view>
+  <view class="task-list">
+    <view wx:if="{{loading}}" class="empty"><text>正在同步今日待办…</text></view>
+    <view wx:if="{{loadError}}" class="empty" bindtap="loadDashboard"><text>{{loadError}}{"\n"}点击重试</text></view>
+    <view
+      wx:for="{{tasks}}"
+      wx:key="id"
+      class="task {{item.type}}"
+      hover-class="task-hover"
+      data-action="{{item.action}}"
+      data-record="{{item.record}}"
+      bindtap="onTaskTap"
+    >
+      <view class="task-dot" />
+      <view class="task-copy">
+        <strong>{{item.title}}</strong>
+        <span>{{item.sub}}</span>
+      </view>
+      <text class="task-time">{{item.time}}</text>
+    </view>
+  </view>
+
+  <view class="section-head">
+    <view class="section-h2">各餐完成度</view>
+    <button class="link-button" hover-class="btn-hover" bindtap="goAdmin">管理菜单</button>
+  </view>
+  <view class="meal-grid">
+    <view wx:for="{{meals}}" wx:key="name" class="meal {{item.incomplete ? 'incomplete' : ''}}">
+      <strong>{{item.name}}</strong>
+      <span>{{item.stat}}</span>
+      <view class="progress"><i style="width: {{item.pct}}%" /></view>
+    </view>
+  </view>
+</view>
+
+<!-- 到期处置抽屉 -->
+<drawer visible="{{disposalVisible}}" title="到期处置" bind:close="closeDisposal">
+  <view class="drawer-copy"><text>{{disposalDish}}</text>已保存超过 48 小时。完成处置后将保留操作记录，不能直接删除。</view>
+  <view class="form-group">
+    <label>处置方式</label>
+    <picker mode="selector" range="{{disposalMethods}}" value="{{disposalMethodIndex}}" bindchange="onMethodChange">
+      <view class="form-control">{{disposalMethods[disposalMethodIndex]}}</view>
+    </picker>
+  </view>
+  <view class="form-group">
+    <label>处置说明</label>
+    <textarea class="form-control textarea" value="{{disposalNote}}" placeholder="选填，例如：外观无异常，按规定废弃" bindinput="onNoteInput" />
+  </view>
+  <view class="form-group">
+    <label>复核人</label>
+    <picker mode="selector" range="{{reviewers}}" value="{{reviewerIndex}}" bindchange="onReviewerChange">
+      <view class="form-control">{{reviewers[reviewerIndex]}}</view>
+    </picker>
+  </view>
+  <button class="btn btn-danger btn-full" hover-class="btn-hover" bindtap="confirmDisposal">确认处置并留痕</button>
+</drawer>
+
+<toast id="pageToast" />
+<splash-overlay visible="{{showSplash}}" bind:finish="onSplashFinish" />

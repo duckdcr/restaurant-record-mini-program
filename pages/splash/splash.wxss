@@ -1,0 +1,37 @@
+/* 开启动画：约 1.8s（淡入 + 轻微放大），随后整页淡出进入待办页 */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--canvas, #f7f8f3);
+  opacity: 1;
+  transition: opacity 260ms ease-out;
+}
+.splash.leaving { opacity: 0; }
+.splash-img {
+  width: 86vw;
+  height: 86vw;
+  max-width: 640rpx;
+  max-height: 640rpx;
+  animation: splash-in 1800ms cubic-bezier(.2, 0, 0, 1) both;
+}
+.login-error {
+  position: absolute;
+  left: 56rpx;
+  right: 56rpx;
+  bottom: 96rpx;
+  padding: 22rpx 28rpx;
+  border-radius: 18rpx;
+  color: #8e2f25;
+  background: #fff1ed;
+  text-align: center;
+  font-size: 26rpx;
+}
+@keyframes splash-in {
+  0% { opacity: 0; transform: scale(.94); }
+  18% { opacity: 1; }
+  100% { opacity: 1; transform: scale(1); }
+}

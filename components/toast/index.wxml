@@ -1,0 +1,1 @@
+<view class="toast {{show ? 'show' : ''}}" aria-live="polite">{{message}}</view>
